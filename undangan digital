@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Raden & Sekar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        javanese: {
+                            gold: '#D4AF37',
+                            darkGold: '#AA7C11',
+                            lightGold: '#F3E5AB',
+                            bronze: '#8C6239',
+                            darkGreen: '#1B2E24',
+                            deepGreen: '#0D1912',
+                            cream: '#FAF6F0',
+                            charcoal: '#222222',
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        marcellus: ['Marcellus', 'serif'],
+                        greatvibes: ['Great Vibes', 'cursive'],
+                        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Keyframe Animations & Utilities */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.8); }
+        }
+        .animate-float { animation: floatSlow 6s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite; }
+        
+        /* Batik Pattern Background */
+        .bg-batik {
+            background-color: #0D1912;
+            background-image: radial-gradient(#d4af3715 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(27, 46, 36, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        /* Hide Scrollbar for clean aesthetics */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-javanese-deepGreen text-javanese-cream font-jakarta antialiased overflow-x-hidden no-scrollbar selection:bg-javanese-gold selection:text-javanese-deepGreen">
+
+    <!-- Full-Screen Lock Opening Cover -->
+    <div id="welcome-cover" class="fixed inset-0 z-50 flex flex-col items-center justify-between p-6 bg-cover bg-center text-center transition-all duration-1000 ease-in-out" style="background-image: linear-gradient(to bottom, rgba(13,25,18,0.65), rgba(13,25,18,0.92)), url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop');">
+        
+        <!-- Top Ornament -->
+        <div class="pt-8 flex flex-col items-center animate-float">
+            <!-- Javanese Gunungan SVG Icon -->
+            <svg class="w-16 h-20 text-javanese-gold fill-current drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]" viewBox="0 0 100 130">
+                <path d="M50 5 L85 100 L65 100 L65 120 L35 120 L35 100 L15 100 Z" stroke="#D4AF37" stroke-width="2" fill="none"/>
+                <path d="M50 15 L78 95 fill-none stroke-javanese-gold"/>
+                <circle cx="50" cy="50" r="12" stroke="#D4AF37" stroke-width="1.5" fill="none"/>
+                <path d="M50 20 L50 110 M25 70 Q50 40 75 70 M30 85 Q50 60 70 85" stroke="#D4AF37" stroke-width="1" fill="none"/>
+            </svg>
+            <span class="font-cinzel text-xs tracking-[0.3em] text-javanese-gold uppercase mt-2">Manten Jawa</span>
+        </div>
+
+        <!-- Center Couple Title -->
+        <div class="my-auto space-y-3 px-4">
+            <p class="font-marcellus text-sm tracking-widest text-javanese-lightGold uppercase">Undangan Pernikahan</p>
+            <h1 class="font-greatvibes text-6xl sm:text-7xl text-javanese-gold drop-shadow-md py-2">Raden & Sekar</h1>
+            <p class="font-cinzel text-xs tracking-[0.25em] text-gray-300 uppercase">Minggu, 24 Mei 2026</p>
+            
+            <div class="pt-6">
+                <p class="text-xs font-light text-gray-300 italic mb-2">Katur Koluwarga/Rekan Tembung:</p>
+                <div class="inline-block px-5 py-2 rounded-full glass-card border border-javanese-gold/40">
+                    <span id="guest-name-cover" class="font-semibold text-sm text-javanese-gold">Tamu Undangan</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Open Invitation Button -->
+        <div class="pb-8 w-full max-w-xs">
+            <button id="btn-open-invitation" onclick="openInvitation()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-javanese-bronze via-javanese-gold to-javanese-bronze text-javanese-deepGreen font-semibold font-cinzel text-sm tracking-wider uppercase shadow-lg shadow-javanese-gold/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 animate-pulse-glow">
+                <i class="fa-solid font-envelope-open text-xs"></i>
+                <span>Buka Undangan</span>
+            </button>
+            <p class="text-[10px] text-gray-400 mt-3 tracking-widest uppercase">Klik untuk membuka & memutar musik</p>
+        </div>
+    </div>
+
+    <!-- Floating Music & Quick Actions Control -->
+    <div id="floating-controls" class="fixed bottom-5 right-5 z-40 flex flex-col gap-3 opacity-0 transition-opacity duration-700">
+        <!-- QR Entrance Pass Toggle -->
+        <button onclick="toggleQRModal()" class="w-12 h-12 rounded-full glass-card border border-javanese-gold flex items-center justify-center text-javanese-gold shadow-lg hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all duration-300" title="QR Code Undangan">
+            <i class="fa-solid fa-qrcode text-lg"></i>
+        </button>
+
+        <!-- Audio Music Toggle -->
+        <button id="btn-music-toggle" onclick="toggleMusic()" class="w-12 h-12 rounded-full glass-card border border-javanese-gold flex items-center justify-center text-javanese-gold shadow-lg hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all duration-300">
+            <i id="music-icon" class="fa-solid fa-compact-disc text-xl animate-spin" style="animation-duration: 4s;"></i>
+        </button>
+    </div>
+
+    <!-- Background Audio (Traditional Instrumental Gamelan/Romantic) -->
+    <audio id="bg-music" loop>
+        <!-- Royalty-free soft acoustic/romantic music placeholder -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-113031.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="main-content" class="w-full max-w-md mx-auto min-h-screen bg-batik relative border-x border-javanese-gold/20 shadow-2xl overflow-hidden">
+
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex flex-col items-center justify-between p-6 text-center bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(13,25,18,0.5), rgba(13,25,18,0.95)), url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=1200&auto=format&fit=crop');">
+            
+            <!-- Language Switcher Bar -->
+            <div class="w-full flex justify-between items-center pt-4">
+                <span class="text-[10px] tracking-widest text-javanese-gold/80 font-cinzel uppercase">Manten Jawa</span>
+                <div class="flex gap-1 bg-javanese-deepGreen/80 p-1 rounded-full border border-javanese-gold/30 text-[10px]">
+                    <button id="lang-id" onclick="switchLanguage('id')" class="px-2.5 py-0.5 rounded-full bg-javanese-gold text-javanese-deepGreen font-semibold transition-all">ID</button>
+                    <button id="lang-en" onclick="switchLanguage('en')" class="px-2.5 py-0.5 rounded-full text-gray-300 transition-all">EN</button>
+                </div>
+            </div>
+
+            <!-- Hero Main Details -->
+            <div class="my-auto space-y-4 py-12">
+                <div class="w-12 h-12 mx-auto rounded-full border border-javanese-gold/40 flex items-center justify-center text-javanese-gold mb-2">
+                    <i class="fa-solid fa-heart text-sm"></i>
+                </div>
+                <p class="font-marcellus text-xs tracking-[0.3em] text-javanese-lightGold uppercase" data-i18n="hero_subtitle">The Wedding Celebration Of</p>
+                <h1 class="font-greatvibes text-6xl text-javanese-gold leading-tight drop-shadow">Raden & Sekar</h1>
+                <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-javanese-gold to-transparent mx-auto my-3"></div>
+                <p class="font-cinzel text-sm text-gray-200 tracking-widest">24 MEI 2026</p>
+                <p class="text-xs font-light text-javanese-lightGold italic">Surakarta (Solo), Jawa Tengah</p>
+            </div>
+
+            <div class="pb-6 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-javanese-gold/60 text-sm"></i>
+            </div>
+        </section>
+
+        <!-- Quote / Ayat Section -->
+        <section class="py-14 px-6 text-center relative">
+            <!-- Javanese Ornamental Header Border -->
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <div class="h-px w-12 bg-javanese-gold/40"></div>
+                <i class="fa-solid fa-leaf text-javanese-gold text-xs"></i>
+                <div class="h-px w-12 bg-javanese-gold/40"></div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-javanese-gold/5 text-8xl font-serif select-none">ꦗꦮ</div>
+                
+                <p class="font-cinzel text-xs text-javanese-gold mb-3 tracking-widest uppercase">QS. Ar-Rum: 21</p>
+                <p class="text-xs text-gray-300 leading-relaxed font-light italic mb-4" data-i18n="quran_quote">
+                    "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                </p>
+
+                <div class="pt-4 border-t border-javanese-gold/20">
+                    <p class="font-greatvibes text-2xl text-javanese-gold">"Nglirip Rasa, Nyawiji Ing Tresna"</p>
+                    <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">(Menyelaraskan Rasa, Menyatu Dalam Cinta)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mempelai (Bride & Groom) Section -->
+        <section class="py-12 px-6 text-center space-y-12">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider" data-i18n="groom_bride_title">Mempelai Pengantin</h2>
+                <p class="text-xs text-gray-400 font-light">Dengan Memohon Rahmat Allah SWT, Kami Mengundang Anda Dalam Pernikahan Kami</p>
+            </div>
+
+            <!-- Groom Profile Card -->
+            <div class="glass-card p-6 rounded-2xl space-y-4 relative border-gradient">
+                <!-- Frame Container -->
+                <div class="relative w-40 h-48 mx-auto rounded-full overflow-hidden p-1 bg-gradient-to-b from-javanese-gold via-javanese-bronze to-javanese-gold shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" alt="Raden Mas Arya" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div>
+                    <h3 class="font-greatvibes text-4xl text-javanese-gold">Raden Mas Arya, S.T.</h3>
+                    <p class="text-[11px] text-gray-300 font-light mt-1">Putra Pertama dari:</p>
+                    <p class="text-xs text-javanese-lightGold font-medium">Bapak Dr. H. Bambang Sugianto & Ibu Hj. Siti Rahayu</p>
+                </div>
+                <a href="https://instagram.com" target="_blank" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] bg-javanese-gold/10 border border-javanese-gold/40 text-javanese-gold hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@raden_arya</span>
+                </a>
+            </div>
+
+            <!-- Divider Symbol -->
+            <div class="font-greatvibes text-4xl text-javanese-gold">&</div>
+
+            <!-- Bride Profile Card -->
+            <div class="glass-card p-6 rounded-2xl space-y-4 relative">
+                <!-- Frame Container -->
+                <div class="relative w-40 h-48 mx-auto rounded-full overflow-hidden p-1 bg-gradient-to-b from-javanese-gold via-javanese-bronze to-javanese-gold shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" alt="Sekar Ningrum" class="w-full h-full object-cover rounded-full">
+                </div>
+                <div>
+                    <h3 class="font-greatvibes text-4xl text-javanese-gold">Sekar Ningrum, M.Ds.</h3>
+                    <p class="text-[11px] text-gray-300 font-light mt-1">Putri Kedua dari:</p>
+                    <p class="text-xs text-javanese-lightGold font-medium">Bapak Prof. K.H. Soebagyo & Ibu Hj. Endang Lestari</p>
+                </div>
+                <a href="https://instagram.com" target="_blank" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] bg-javanese-gold/10 border border-javanese-gold/40 text-javanese-gold hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@sekar_ningrum</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Save The Date & Countdown Section -->
+        <section class="py-12 px-6 text-center space-y-8">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider" data-i18n="save_date_title">Waktu & Tempat</h2>
+                <p class="text-xs text-gray-400 font-light">Minggu, 24 Mei 2026</p>
+            </div>
+
+            <!-- Live Countdown Timer -->
+            <div class="grid grid-cols-4 gap-2">
+                <div class="glass-card p-3 rounded-xl border border-javanese-gold/30">
+                    <span id="timer-days" class="font-cinzel text-2xl font-bold text-javanese-gold block">00</span>
+                    <span class="text-[9px] text-gray-300 uppercase tracking-wider">Hari</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-javanese-gold/30">
+                    <span id="timer-hours" class="font-cinzel text-2xl font-bold text-javanese-gold block">00</span>
+                    <span class="text-[9px] text-gray-300 uppercase tracking-wider">Jam</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-javanese-gold/30">
+                    <span id="timer-mins" class="font-cinzel text-2xl font-bold text-javanese-gold block">00</span>
+                    <span class="text-[9px] text-gray-300 uppercase tracking-wider">Menit</span>
+                </div>
+                <div class="glass-card p-3 rounded-xl border border-javanese-gold/30">
+                    <span id="timer-secs" class="font-cinzel text-2xl font-bold text-javanese-gold block">00</span>
+                    <span class="text-[9px] text-gray-300 uppercase tracking-wider">Detik</span>
+                </div>
+            </div>
+
+            <!-- Add to Calendar Button -->
+            <button onclick="addToCalendar()" class="inline-flex items-center gap-2 py-2.5 px-6 rounded-full bg-javanese-gold/10 border border-javanese-gold text-javanese-gold hover:bg-javanese-gold hover:text-javanese-deepGreen text-xs font-semibold tracking-wider transition-all">
+                <i class="fa-regular fa-calendar-plus text-sm"></i>
+                <span>Simpan Ke Kalender</span>
+            </button>
+
+            <!-- Event Details Cards -->
+            <div class="space-y-6 pt-4">
+                <!-- Akad Nikah Card -->
+                <div class="glass-card p-6 rounded-2xl text-left space-y-3 relative overflow-hidden">
+                    <div class="w-8 h-8 rounded-full bg-javanese-gold/20 text-javanese-gold flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-ring"></i>
+                    </div>
+                    <h3 class="font-cinzel text-lg text-javanese-gold font-semibold">Akad Nikah</h3>
+                    <div class="text-xs text-gray-300 space-y-1">
+                        <p><i class="fa-regular fa-clock text-javanese-gold w-4"></i> 08.00 - 10.00 WIB</p>
+                        <p><i class="fa-solid fa-location-dot text-javanese-gold w-4"></i> Pendopo Ageng Handrawina</p>
+                        <p class="pl-4 text-gray-400 text-[11px]">Jl. Slamet Riyadi No. 124, Surakarta</p>
+                    </div>
+                </div>
+
+                <!-- Resepsi Card -->
+                <div class="glass-card p-6 rounded-2xl text-left space-y-3 relative overflow-hidden">
+                    <div class="w-8 h-8 rounded-full bg-javanese-gold/20 text-javanese-gold flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-[#FFD700] fa-champagne-glasses"></i>
+                    </div>
+                    <h3 class="font-cinzel text-lg text-javanese-gold font-semibold">Resepsi Pernikahan</h3>
+                    <div class="text-xs text-gray-300 space-y-1">
+                        <p><i class="fa-regular fa-clock text-javanese-gold w-4"></i> 11.00 - 14.00 WIB</p>
+                        <p><i class="fa-solid fa-location-dot text-javanese-gold w-4"></i> Ballroom Hotel Royal Surakarta</p>
+                        <p class="pl-4 text-gray-400 text-[11px]">Jl. Gajah Mada No. 88, Surakarta</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Maps Embed Card -->
+            <div class="glass-card p-4 rounded-2xl space-y-4">
+                <div class="w-full h-48 rounded-xl overflow-hidden border border-javanese-gold/20 relative">
+                    <iframe title="Map Location" class="w-full h-full filter contrast-125 grayscale hover:grayscale-0 transition-all duration-500" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.123456789!2d110.82!3d-7.56!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMzMnMzYuMCJTIDExM8KwNDknMTI4LjAiRQ!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid" loading="lazy"></iframe>
+                </div>
+                <a href="https://maps.google.com" target="_blank" class="w-full py-3 rounded-xl bg-javanese-gold text-javanese-deepGreen font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-javanese-lightGold transition-all">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Buka Google Maps</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Portrait Gallery Section -->
+        <section class="py-12 px-6 text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider" data-i18n="gallery_title">Galeri Foto</h2>
+                <p class="text-xs text-gray-400 font-light">Momen Kebahagiaan Kami</p>
+            </div>
+
+            <!-- Main Interactive Carousel Featured Image -->
+            <div class="relative rounded-2xl overflow-hidden border border-javanese-gold/30 shadow-2xl glass-card">
+                <img id="gallery-main-img" src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop" class="w-full h-80 object-cover cursor-pointer transition-all duration-500 hover:scale-105" onclick="openLightbox(this.src)" alt="Gallery Main">
+            </div>
+
+            <!-- Thumbnails Selector -->
+            <div class="grid grid-cols-4 gap-2">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=300&auto=format&fit=crop" class="w-full h-20 object-cover rounded-xl border-2 border-javanese-gold cursor-pointer opacity-100 transition-all hover:opacity-100" onclick="setMainGallery(this)" alt="Thumb 1">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=300&auto=format&fit=crop" class="w-full h-20 object-cover rounded-xl border border-javanese-gold/30 cursor-pointer opacity-60 hover:opacity-100 transition-all" onclick="setMainGallery(this)" alt="Thumb 2">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=300&auto=format&fit=crop" class="w-full h-20 object-cover rounded-xl border border-javanese-gold/30 cursor-pointer opacity-60 hover:opacity-100 transition-all" onclick="setMainGallery(this)" alt="Thumb 3">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=300&auto=format&fit=crop" class="w-full h-20 object-cover rounded-xl border border-javanese-gold/30 cursor-pointer opacity-60 hover:opacity-100 transition-all" onclick="setMainGallery(this)" alt="Thumb 4">
+            </div>
+        </section>
+
+        <!-- Dresscode & Color Palette Section -->
+        <section class="py-12 px-6 text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider">Dresscode</h2>
+                <p class="text-xs text-gray-300 font-light">Merupakan Suatu Kehormatan Bagi Kami Apabila Bapak/Ibu/Saudara/i Berkenan Hadir Dengan Busana Sesuai Warna Berikut:</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl space-y-5">
+                <p class="font-cinzel text-xs text-javanese-gold tracking-widest uppercase">Earthy Javanese Palette</p>
+                <div class="flex justify-center items-center gap-4">
+                    <div class="flex flex-col items-center gap-1.5 cursor-pointer" onclick="showColorName('Batik Bronze', '#8C6239')">
+                        <div class="w-10 h-10 rounded-full bg-[#8C6239] border-2 border-javanese-gold shadow-md"></div>
+                        <span class="text-[10px] text-gray-300">Bronze</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5 cursor-pointer" onclick="showColorName('Royal Gold', '#D4AF37')">
+                        <div class="w-10 h-10 rounded-full bg-[#D4AF37] border-2 border-javanese-gold shadow-md"></div>
+                        <span class="text-[10px] text-gray-300">Gold</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5 cursor-pointer" onclick="showColorName('Deep Sage Green', '#1B2E24')">
+                        <div class="w-10 h-10 rounded-full bg-[#1B2E24] border-2 border-javanese-gold shadow-md"></div>
+                        <span class="text-[10px] text-gray-300">Sage</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1.5 cursor-pointer" onclick="showColorName('Cream Warm', '#FAF6F0')">
+                        <div class="w-10 h-10 rounded-full bg-[#FAF6F0] border-2 border-javanese-gold shadow-md"></div>
+                        <span class="text-[10px] text-gray-300">Cream</span>
+                    </div>
+                </div>
+                <p id="color-toast" class="text-[11px] text-javanese-lightGold italic pt-2">Klik warna untuk detail nama warna</p>
+            </div>
+        </section>
+
+        <!-- Amplop Digital / Wedding Gift Section -->
+        <section class="py-12 px-6 text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider" data-i18n="gift_title">Amplop Digital</h2>
+                <p class="text-xs text-gray-300 font-light">Doa restu Anda merupakan hadiah terindah bagi kami. Namun jika Anda ingin memberi hadiah, dapat melalui rekening berikut:</p>
+            </div>
+
+            <!-- Bank Cards -->
+            <div class="space-y-4">
+                <!-- Bank BCA Card -->
+                <div class="glass-card p-5 rounded-2xl text-left space-y-3 relative border border-javanese-gold/30">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg text-javanese-gold tracking-wider">BANK BCA</span>
+                        <i class="fa-solid fa-credit-card text-javanese-gold/60"></i>
+                    </div>
+                    <div>
+                        <p id="no-bca" class="font-mono text-base text-gray-100 font-semibold tracking-wider">1234 5678 901</p>
+                        <p class="text-xs text-gray-400">a.n. Raden Mas Arya</p>
+                    </div>
+                    <button onclick="copyToClipboard('12345678901', 'Bank BCA')" class="w-full py-2 rounded-xl bg-javanese-gold/10 border border-javanese-gold/50 text-javanese-gold text-xs font-semibold hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Salin Nomor Rekening</span>
+                    </button>
+                </div>
+
+                <!-- Bank Mandiri / E-Wallet Card -->
+                <div class="glass-card p-5 rounded-2xl text-left space-y-3 relative border border-javanese-gold/30">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg text-javanese-gold tracking-wider">BANK MANDIRI</span>
+                        <i class="fa-solid fa-building-columns text-javanese-gold/60"></i>
+                    </div>
+                    <div>
+                        <p id="no-mandiri" class="font-mono text-base text-gray-100 font-semibold tracking-wider">9870 0123 4567</p>
+                        <p class="text-xs text-gray-400">a.n. Sekar Ningrum</p>
+                    </div>
+                    <button onclick="copyToClipboard('987001234567', 'Bank Mandiri')" class="w-full py-2 rounded-xl bg-javanese-gold/10 border border-javanese-gold/50 text-javanese-gold text-xs font-semibold hover:bg-javanese-gold hover:text-javanese-deepGreen transition-all flex items-center justify-center gap-2">
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Salin Nomor Rekening</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wishes & RSVP Form Section -->
+        <section class="py-12 px-6 text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="font-cinzel text-xl text-javanese-gold uppercase tracking-wider" data-i18n="wishes_title">Ucapan & Doa</h2>
+                <p class="text-xs text-gray-400 font-light">Berikan Doa Restu Terbaik Anda Untuk Kedua Mempelai</p>
+            </div>
+
+            <!-- Form -->
+            <form id="wish-form" onsubmit="submitWish(event)" class="glass-card p-6 rounded-2xl text-left space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-javanese-gold mb-1">Nama Lengkap</label>
+                    <input type="text" id="wish-name" required placeholder="Masukkan Nama Anda" class="w-full px-4 py-2.5 rounded-xl bg-javanese-deepGreen/80 border border-javanese-gold/30 text-xs text-gray-100 focus:outline-none focus:border-javanese-gold">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-javanese-gold mb-1">Konfirmasi Kehadiran</label>
+                    <select id="wish-attendance" required class="w-full px-4 py-2.5 rounded-xl bg-javanese-deepGreen/80 border border-javanese-gold/30 text-xs text-gray-100 focus:outline-none focus:border-javanese-gold">
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Ragu / Tidak Hadir</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-javanese-gold mb-1">Ucapan & Doa</label>
+                    <textarea id="wish-message" rows="3" required placeholder="Tuliskan pesan ucapan & doa..." class="w-full px-4 py-2.5 rounded-xl bg-javanese-deepGreen/80 border border-javanese-gold/30 text-xs text-gray-100 focus:outline-none focus:border-javanese-gold"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-javanese-gold text-javanese-deepGreen font-semibold text-xs uppercase tracking-wider hover:bg-javanese-lightGold transition-all">
+                    Kirim Ucapan
+                </button>
+            </form>
+
+            <!-- Dynamic Wishes Feed Stream -->
+            <div class="space-y-3 pt-2 text-left">
+                <p class="text-xs font-cinzel text-javanese-gold">Pesan Ucapan Terkini:</p>
+                <div id="wishes-container" class="max-h-72 overflow-y-auto space-y-3 pr-1 no-scrollbar">
+                    <!-- Dynamic Items loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 text-center space-y-4 border-t border-javanese-gold/20 bg-javanese-deepGreen/90">
+            <h2 class="font-greatvibes text-4xl text-javanese-gold">Raden & Sekar</h2>
+            <p class="text-xs text-gray-400 font-light">Matur Nuwun Atas Doa & Restu Bapak/Ibu/Saudara/i Sekalian.</p>
+            <div class="pt-4 text-[10px] text-gray-500 font-mono">
+                © 2026 Manten Jawa Invitation
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Modal Entry Pass QR Code -->
+    <div id="qr-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card max-w-xs w-full p-6 rounded-2xl text-center space-y-4 border border-javanese-gold relative">
+            <button onclick="toggleQRModal()" class="absolute top-3 right-3 text-gray-400 hover:text-javanese-gold">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="font-cinzel text-sm text-javanese-gold uppercase">E-Invitation Pass</h3>
+            <p class="text-[11px] text-gray-300">Tunjukkan QR Code ini kepada petugas penerima tamu di lokasi acara</p>
+            
+            <!-- QR Code Canvas Container -->
+            <div class="p-3 bg-white rounded-xl inline-block shadow-inner">
+                <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=RadenSekarWeddingPass2026" alt="QR Pass" class="w-44 h-44">
+            </div>
+
+            <p class="text-[10px] text-javanese-lightGold italic">Kode Tamu: #JAVA-2026-RS</p>
+        </div>
+    </div>
+
+    <!-- Notification Toast Floating Pop-up -->
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-full bg-javanese-gold text-javanese-deepGreen font-semibold text-xs shadow-2xl opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-text">Pesan berhasil disalin!</span>
+    </div>
+
+    <script>
+        /* Interactive Application State & Controller */
+        let isAudioPlaying = false;
+        const bgMusic = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+
+        // Dynamic URL Params guest name parsing (e.g. ?to=Nama+Tamu)
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to') || urlParams.get('u') || 'Bapak/Ibu/Saudara/i';
+            document.getElementById('guest-name-cover').innerText = guestName;
+            
+            // Load Saved Wishes
+            renderWishes();
+            
+            // Start Live Countdown
+            startCountdown();
+        });
+
+        /* Unlock & Open Invitation Animation */
+        function openInvitation() {
+            const cover = document.getElementById('welcome-cover');
+            const floatingControls = document.getElementById('floating-controls');
+
+            // Slide out cover
+            cover.classList.add('opacity-0', '-translate-y-full');
+            setTimeout(() => {
+                cover.style.display = 'none';
+            }, 1000);
+
+            // Show controls
+            floatingControls.classList.remove('opacity-0');
+
+            // Play background music audio
+            playMusic();
+        }
+
+        /* Toggle Audio Player */
+        function toggleMusic() {
+            if (isAudioPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.remove('animate-spin');
+                isAudioPlaying = false;
+            } else {
+                playMusic();
+            }
+        }
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                isAudioPlaying = true;
+                musicIcon.classList.add('animate-spin');
+            }).catch(err => {
+                console.log("Audio autoplay restricted by browser", err);
+            });
+        }
+
+        /* Countdown Timer Logic */
+        function startCountdown() {
+            const targetDate = new Date("May 24, 2026 08:00:00").getTime();
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) return;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("timer-days").innerText = days < 10 ? "0" + days : days;
+                document.getElementById("timer-hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("timer-mins").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("timer-secs").innerText = seconds < 10 ? "0" + seconds : seconds;
+            }, 1000);
+        }
+
+        /* Gallery Main Image Selector */
+        function setMainGallery(thumb) {
+            const mainImg = document.getElementById('gallery-main-img');
+            mainImg.src = thumb.src;
+        }
+
+        /* Interactive Dresscode Color Toast */
+        function showColorName(name, hex) {
+            const toastLabel = document.getElementById('color-toast');
+            toastLabel.innerHTML = `Pilihan Warna: <span style="color:${hex}" class="font-bold">${name}</span>`;
+        }
+
+        /* Copy Bank Account Number */
+        function copyToClipboard(text, provider) {
+            // Using execCommand fallback for seamless preview support
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            showToast(`Nomor Rekening ${provider} Berhasil Disalin!`);
+        }
+
+        /* Show Notification Toast */
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toast-text');
+            toastText.innerText = message;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        /* Modal QR Toggle */
+        function toggleQRModal() {
+            const modal = document.getElementById('qr-modal');
+            if (modal.classList.contains('opacity-0')) {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        /* Save The Date Calendar Generator */
+        function addToCalendar() {
+            const title = encodeURIComponent("Pernikahan Raden Mas Arya & Sekar Ningrum");
+            const details = encodeURIComponent("Akad & Resepsi Pernikahan Raden & Sekar di Surakarta.");
+            const location = encodeURIComponent("Pendopo Ageng Handrawina, Surakarta");
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20260524T010000Z/20260524T070000Z&details=${details}&location=${location}`;
+            window.open(url, '_blank');
+        }
+
+        /* Wish Comments LocalStorage Management */
+        const defaultWishes = [
+            { name: "Bambang & Keluarga", attendance: "Hadir", message: "Selamat untuk Arya & Sekar! Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah." },
+            { name: "Siti Rahma", attendance: "Hadir", message: "Matur nuwun undangannya. Lancar sampai hari H nggih!" }
+        ];
+
+        function getWishes() {
+            const stored = localStorage.getItem('javanese_wedding_wishes');
+            return stored ? JSON.parse(stored) : defaultWishes;
+        }
+
+        function submitWish(event) {
+            event.preventDefault();
+            const name = document.getElementById('wish-name').value;
+            const attendance = document.getElementById('wish-attendance').value;
+            const message = document.getElementById('wish-message').value;
+
+            const wishes = getWishes();
+            wishes.unshift({ name, attendance, message });
+            localStorage.setItem('javanese_wedding_wishes', JSON.stringify(wishes));
+
+            document.getElementById('wish-form').reset();
+            renderWishes();
+            showToast("Ucapan & Doa Anda telah terkirim!");
+        }
+
+        function renderWishes() {
+            const container = document.getElementById('wishes-container');
+            const wishes = getWishes();
+
+            container.innerHTML = wishes.map(w => `
+                <div class="glass-card p-3.5 rounded-xl border border-javanese-gold/20 space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-xs text-javanese-gold">${w.name}</span>
+                        <span class="text-[9px] px-2 py-0.5 rounded-full ${w.attendance === 'Hadir' ? 'bg-emerald-900/60 text-emerald-300' : 'bg-amber-900/60 text-amber-300'} border border-javanese-gold/20">${w.attendance}</span>
+                    </div>
+                    <p class="text-[11px] text-gray-300 font-light leading-relaxed">${w.message}</p>
+                </div>
+            `).join('');
+        }
+
+        /* Language Switcher Simulation */
+        const translations = {
+            id: {
+                hero_subtitle: "The Wedding Celebration Of",
+                quran_quote: `"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."`,
+                groom_bride_title: "Mempelai Pengantin",
+                save_date_title: "Waktu & Tempat",
+                gallery_title: "Galeri Foto",
+                gift_title: "Amplop Digital",
+                wishes_title: "Ucapan & Doa"
+            },
+            en: {
+                hero_subtitle: "The Wedding Celebration Of",
+                quran_quote: `"And among His signs is that He created for you mates from among yourselves, that you may find tranquility in them; and He placed between you affection and mercy."`,
+                groom_bride_title: "Bride & Groom",
+                save_date_title: "Save The Date",
+                gallery_title: "Our Portrait Gallery",
+                gift_title: "Digital Envelope",
+                wishes_title: "Wishes & Prayers"
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.getElementById('lang-id').className = lang === 'id' ? "px-2.5 py-0.5 rounded-full bg-javanese-gold text-javanese-deepGreen font-semibold transition-all" : "px-2.5 py-0.5 rounded-full text-gray-300 transition-all";
+            document.getElementById('lang-en').className = lang === 'en' ? "px-2.5 py-0.5 rounded-full bg-javanese-gold text-javanese-deepGreen font-semibold transition-all" : "px-2.5 py-0.5 rounded-full text-gray-300 transition-all";
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+```
